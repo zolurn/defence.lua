@@ -17,8 +17,8 @@ local OverrideUserSettings = true
 
 -- Script settings
 local Redacted = {
-    Username = OverrideUserSettings and "admin" or "user1",
-    Build = OverrideUserSettings and 'developer' or 'live',
+    Username = OverrideUserSettings and "free" or "user1",
+    Build = OverrideUserSettings and 'byui' or 'live',
 
     Accent = Color3.fromRGB(140, 130, 255)
 }
@@ -4600,7 +4600,7 @@ local Storage = {
 
 -- UI/Menu Creation
     local Window = Library:CreateWindow({
-        Title = 'Redacted-project ( ' .. Redacted.Username .. ", " .. Redacted.Build .. ' )',
+        Title = 'defence.lua ( ' .. Redacted.Username .. ", " .. Redacted.Build .. ' )',
         Center = true, AutoShow = true, TabPadding = 5, MenuFadeTime = 0.2
     })
 
@@ -6049,5 +6049,3 @@ SaveManager:SetFolder('RedactedProject')
 SaveManager:BuildConfigSection(Tabs.Settings)
 
 SaveManager:LoadAutoloadConfig()
-
-Library:Notify(string.format('[RedactedProject] Script loaded, Welcome %q!', Redacted.Username))
