@@ -17,10 +17,10 @@ local OverrideUserSettings = true
 
 -- Script settings
 local Redacted = {
-    Username = OverrideUserSettings and "free" or "user1",
-    Build = OverrideUserSettings and 'byui' or 'live',
+    Username = OverrideUserSettings and "free user" or "sigma",
+    Build = OverrideUserSettings and 'v1' or 'v2',
 
-    Accent = Color3.fromRGB(140, 130, 255)
+    Accent = Color3.fromRGB(221, 160, 221)
 }
 
 -- Override Drawing Library so celery works (Using Solara's library) I should probably add a executor check but haha IDGAF YALL ALL USE THIS ANYWAYS (i think, except electron)
@@ -4313,15 +4313,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EdwinS7/SolaraLua/mai
             Other = {}
         },
 
-        Antiaim = {
-            General = {
-                Enabled = false,
-            },
 
-            FakeLag = {
-                
-            }
-        },
 
         Visuals = {
             Players = {
@@ -4600,13 +4592,12 @@ local Storage = {
 
 -- UI/Menu Creation
     local Window = Library:CreateWindow({
-        Title = 'defence.lua ( ' .. Redacted.Username .. ", " .. Redacted.Build .. ' )',
+        Title = 'defense.lua ( ' .. Redacted.Username .. ", " .. Redacted.Build .. ' )',
         Center = true, AutoShow = true, TabPadding = 5, MenuFadeTime = 0.2
     })
 
     local Tabs = {
-        Ragebot = Window:AddTab('Ragebot'),
-        Antiaim = Window:AddTab('Anti-aim'),
+        Ragebot = Window:AddTab('Aimbot'),
         Visuals = Window:AddTab('Visuals'),
         Misc = Window:AddTab('Miscellaneous'),
         Settings = Window:AddTab('Settings')
@@ -4615,14 +4606,8 @@ local Storage = {
     local Groups = {
         Ragebot = {
             General = Tabs.Ragebot:AddLeftGroupbox('General'),
-            Other = Tabs.Ragebot:AddRightGroupbox('Other')
         },
 
-        Antiaim = {
-            General = Tabs.Antiaim:AddLeftGroupbox('General'),
-            Fakelag = Tabs.Antiaim:AddRightGroupbox('Fakelag'),
-            Other = Tabs.Antiaim:AddRightGroupbox('Other')
-        },
 
         Visuals = {
             Players = Tabs.Visuals:AddLeftGroupbox('Players'),
@@ -4638,7 +4623,7 @@ local Storage = {
         },
 
         Settings = {
-            Menu = Tabs.Settings:AddLeftGroupbox(OverrideUserSettings and 'Menu / Developer' or 'Menu')
+            Menu = Tabs.Settings:AddLeftGroupbox(OverrideUserSettings and 'Menu' or 'Menu')
             -- 'Configuration' Is added later on by the SaveManager.
         }
     }
@@ -4730,16 +4715,7 @@ local Storage = {
     })
 
     -- UI -> Antiaim -> General
-    Groups.Antiaim.General:AddToggle('AntiAimEnabled', {
-        Text = 'Enabled',
-        Tooltip = nil,
 
-        Default = false,
-
-        Callback = function(Value)
-            Config.Antiaim.General.Enabled = Value
-        end
-    })
 
     -- UI -> Antiaim -> Fakelag
     --[[Groups.Antiaim.Fakelag:AddToggle('Fakelag', {
@@ -5114,11 +5090,7 @@ local Storage = {
 
     Library.ToggleKeybind = Options.MenuKeybind
 
-    if OverrideUserSettings then
-        Groups.Settings.Menu:AddButton('Load DarkDex', function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))()
-        end)
-    end
+
 --
 
 -- Skip Misc->Configuration, Handled at EOF because of unload function.
@@ -5741,11 +5713,9 @@ local Storage = {
 --
 
 -- Features -> Antiaim
-    local Antiaim = {}
 
-    function Antiaim:Run()
-        
-    end
+
+  
 --
 
 -- Features -> Autowall
@@ -5981,7 +5951,6 @@ local Storage = {
         end
 
         Ragebot:Run()
-        Antiaim:Run()
         Misc:Run()
     end)
 
@@ -6049,3 +6018,5 @@ SaveManager:SetFolder('RedactedProject')
 SaveManager:BuildConfigSection(Tabs.Settings)
 
 SaveManager:LoadAutoloadConfig()
+
+Library:Notify(string.format('[defense.lua] Script loaded, Welcome %q!', Redacted.Username))
